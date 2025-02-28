@@ -5,43 +5,94 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
-  
+  <link rel="stylesheet" href="style.css">
   <title>Frontend Mentor | Tic Tac Toe</title>
 </head>
 <body>
+  <div class="menu">
+    <div class="head">
+      <img src="assets/logo.svg" alt="">
+    </div>
+    <div class="body">
+      <h5>PICK PLAYER 1’S MARK</h5>
+      <div class="choice"> 
+        <span><div style="mask-image: url('assets/icon-x-2.svg');"></div></span>
+        <span class="active"><div style="mask-image: url('assets/icon-o-2.svg');"></div></span>
+      </div>
+      <span>REMEMBER : X GOES FIRST</span>
+    </div>
+    <div class="foot">
+      <div class="btn">NEW GAME (VS CPU)</div>
+      <div class="btn-2">NEW GAME  (VS PLAYER)</div>
+    </div>
+  </div>
 
-  <!-- New game menu start -->
 
-  Pick player 1's mark
-  Remember: X goes first
+  <div class="board">
+    <div class="head">
+      <div class="logo">
+        <img src="assets/logo.svg" alt="">
+      </div>
+      <div class="turn">
+        <span><img src="assets/icon-x-2.svg" alt="">TURN</span>
+      </div>
+      <div class="restart">
+        <img src="assets/icon-restart.svg" alt="">
+      </div>
+    </div>
+    <div class="body">
+      <div class="case">
+        <img src="assets/icon-x-outline.svg" alt="">
+      </div>
+      <div class="case">
+        <img src="assets/icon-x-outline.svg" alt="">
+      </div>
+      <div class="case">
+        <img src="assets/icon-x-outline.svg" alt="">
+      </div>
+      <div class="case">
+        <img src="assets/icon-x-outline.svg" alt="">
+      </div>
+      <div class="case">
+        <img src="assets/icon-x-outline.svg" alt="">
+      </div>
+      <div class="case">
+        <img src="assets/icon-x-outline.svg" alt="">
+      </div>
+      <div class="case">
+        <img src="assets/icon-x-outline.svg" alt="">
+      </div>
+      <div class="case">
+        <img src="assets/icon-x-outline.svg" alt="">
+      </div>
+      <div class="case">
+        <img src="assets/icon-x-outline.svg" alt="">
+      </div>
+    </div>
+    <div class="foot">
+      <div style="background-color: #31C3BD;">
+        <p>X(YOU)<span>14</span></p>
+      </div>
+      <div style="background-color: #A8BFC9;">
+        <p>TIES<span>32</span></p>
+      </div>
+      <div style="background-color: #F2B137;">
+        <p>O(CPU)<span>11</span></p>
+      </div>
+    </div>
+  </div>
 
-  New Game (vs CPU)
-  New Game (vs player)
+  <div class="result">
+    <div class="container">
+      <p>OH NO, YOU LOST…</p>
+      <h2><img src="assets/icon-o.svg" alt="">TAKES THE ROUND</h2>
+      <div class="btns">
+        <div class="btn">QUIT</div>
+        <div class="btn-2">NEXT ROUND</div>
+      </div>
+    </div>
+  </div>
 
-  <!-- New game menu end -->
-
-  <!-- Game board start -->
-
-  <!-- x/o icon --> turn
-
-  X (You) <!-- Your score -->
-  Ties <!-- Ties score -->
-  X (CPU) <!-- CPU score -->
-
-  Oh no, you lost
-  You won!
-  Player <!-- 1/2 --> wins!
-
-  <!-- x/o icon --> takes the round
-  Round tied
-  Restart game?
-
-  Quit
-  Next round
-  No, cancel
-  Yes, restart
-
-  <!-- Game board end -->
-
+  <script src="main.js"></script>
 </body>
 </html>

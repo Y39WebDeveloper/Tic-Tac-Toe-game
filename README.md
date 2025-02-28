@@ -1,5 +1,5 @@
 # Frontend Mentor - Tic Tac Toe
-
+Live preview:  https://y39webdeveloper.github.io/Tic-Tac-Toe-game/
 ![Design preview for the Tic Tac Toe coding challenge](./preview.jpg)
 
 ## Welcome! 👋
