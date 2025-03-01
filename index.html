@@ -1,91 +1,78 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
-  <link rel="stylesheet" href="style.css">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png" />
+  <link rel="stylesheet" href="style.css" />
   <title>Frontend Mentor | Tic Tac Toe</title>
 </head>
+
 <body>
-  <div class="menu">
+  <div class="menu" id="menu">
     <div class="head">
-      <img src="assets/logo.svg" alt="">
+      <img src="assets/logo.svg" alt="" />
     </div>
     <div class="body">
       <h5>PICK PLAYER 1’S MARK</h5>
-      <div class="choice"> 
-        <span><div style="mask-image: url('assets/icon-x-2.svg');"></div></span>
-        <span class="active"><div style="mask-image: url('assets/icon-o-2.svg');"></div></span>
+      <div class="choice">
+        <span data-value="x">
+          <div style="mask-image: url('assets/icon-x-2.svg')"></div>
+        </span>
+        <span data-value="o" class="active">
+          <div style="mask-image: url('assets/icon-o-2.svg')"></div>
+        </span>
       </div>
       <span>REMEMBER : X GOES FIRST</span>
     </div>
     <div class="foot">
-      <div class="btn">NEW GAME (VS CPU)</div>
-      <div class="btn-2">NEW GAME  (VS PLAYER)</div>
+      <div class="btn" id="solo">NEW GAME (VS CPU)</div>
+      <div class="btn-2" id="multi">NEW GAME (VS PLAYER)</div>
     </div>
   </div>
 
-
-  <div class="board">
+  <div class="board" id="board">
     <div class="head">
       <div class="logo">
-        <img src="assets/logo.svg" alt="">
+        <img src="assets/logo.svg" alt="" />
       </div>
       <div class="turn">
-        <span><img src="assets/icon-x-2.svg" alt="">TURN</span>
+        <span><img src="assets/icon-x-2.svg" alt="" />TURN</span>
       </div>
-      <div class="restart">
-        <img src="assets/icon-restart.svg" alt="">
+      <div class="restart" id="restart">
+        <img src="assets/icon-restart.svg" alt="" />
       </div>
     </div>
     <div class="body">
-      <div class="case">
-        <img src="assets/icon-x-outline.svg" alt="">
-      </div>
-      <div class="case">
-        <img src="assets/icon-x-outline.svg" alt="">
-      </div>
-      <div class="case">
-        <img src="assets/icon-x-outline.svg" alt="">
-      </div>
-      <div class="case">
-        <img src="assets/icon-x-outline.svg" alt="">
-      </div>
-      <div class="case">
-        <img src="assets/icon-x-outline.svg" alt="">
-      </div>
-      <div class="case">
-        <img src="assets/icon-x-outline.svg" alt="">
-      </div>
-      <div class="case">
-        <img src="assets/icon-x-outline.svg" alt="">
-      </div>
-      <div class="case">
-        <img src="assets/icon-x-outline.svg" alt="">
-      </div>
-      <div class="case">
-        <img src="assets/icon-x-outline.svg" alt="">
-      </div>
+      <div data-value="" class="case"></div>
+      <div data-value="" class="case"></div>
+      <div data-value="" class="case"></div>
+      <div data-value="" class="case"></div>
+      <div data-value="" class="case"></div>
+      <div data-value="" class="case"></div>
+      <div data-value="" class="case"></div>
+      <div data-value="" class="case"></div>
+      <div data-value="" class="case"></div>
     </div>
     <div class="foot">
-      <div style="background-color: #31C3BD;">
+      <div style="background-color: #31c3bd">
         <p>X(YOU)<span>14</span></p>
       </div>
-      <div style="background-color: #A8BFC9;">
+      <div style="background-color: #a8bfc9">
         <p>TIES<span>32</span></p>
       </div>
-      <div style="background-color: #F2B137;">
+      <div style="background-color: #f2b137">
         <p>O(CPU)<span>11</span></p>
       </div>
     </div>
   </div>
 
-  <div class="result">
+  <div class="result" id="result">
     <div class="container">
       <p>OH NO, YOU LOST…</p>
-      <h2><img src="assets/icon-o.svg" alt="">TAKES THE ROUND</h2>
+      <h2><img src="assets/icon-o.svg" alt="" />TAKES THE ROUND</h2>
       <div class="btns">
         <div class="btn">QUIT</div>
         <div class="btn-2">NEXT ROUND</div>
@@ -95,4 +82,5 @@
 
   <script src="main.js"></script>
 </body>
+
 </html>
