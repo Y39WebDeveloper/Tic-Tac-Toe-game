@@ -3,12 +3,59 @@ const board = document.getElementById("board")
 const result = document.getElementById("result")
 const cases = document.querySelectorAll(".board .body .case")
 
+const xScore = document.getElementById("xScore")
+const oScore = document.getElementById("oScore")
+const ties = document.getElementById("ties")
+const winMessage = document.getElementById("winMessage")
+
+
+function setScore(){
+    xScore.innerHTML = sessionStorage.xScore ? sessionStorage.xScore : 0
+    oScore.innerHTML = sessionStorage.oScore ? sessionStorage.oScore : 0
+    ties.innerHTML = sessionStorage.ties ? sessionStorage.ties : 0
+}
+setScore()
+
+function setWinState(){
+    sessionStorage.winState = undefined ? "false" : sessionStorage.winState
+    if(sessionStorage.winState == "true"){
+        result.classList.add("show")
+        setWinMessage()
+    }else{
+        result.classList.remove("show")
+    }
+}
+function setWinMessage(){
+    sessionStorage.winMessage = undefined ? "oWin" : sessionStorage.winMessage
+    if(sessionStorage.winMessage == "oWin"){
+        winMessage.innerHTML = "<p>PLAYER 1 WINS!</p>"
+        winMessage.innerHTML += "<h2 style='color:#F2B137'><img src='assets/icon-o.svg' alt='' />TAKES THE ROUND</h2>"
+    }else if(sessionStorage.winMessage == "xWin"){
+        winMessage.innerHTML = "<p>PLAYER 2 WINS!</p>"
+        winMessage.innerHTML += "<h2 style='color:#31C3BD'><img src='assets/icon-x.svg' alt='' />TAKES THE ROUND</h2>"
+    }else{
+        winMessage.innerHTML = "<h2 style='color:#A8BFC9'>ROUND TIED</h2>"
+    }
+}
+setWinState()
 
 if(sessionStorage.layerIndex == undefined){
     sessionStorage.setItem("layerIndex",0)
 }
+if(sessionStorage.caseValue == undefined){
+    let a = ["","","","","","","","",""]
+    sessionStorage.caseValue = JSON.stringify(a)
+}
+function setTurnTxt(){
+    if(sessionStorage.currentPlayer == "o"){
+        document.querySelector(".turn span img").src = "assets/icon-o-2.svg";
+    }else{
+        document.querySelector(".turn span img").src = "assets/icon-x-2.svg";
+    }
+}
+setTurnTxt()
 
-const layers = [menu, board, result]
+const layers = [menu, board]
 function setLayer(layers){
     for(let i = 0; i < layers.length; i++){
         layers[i].classList.remove("show")
@@ -53,6 +100,11 @@ multi.addEventListener("click", () => {
     sessionStorage.setItem("currentPlayer", "x")
     let a = ["","","","","","","","",""]
     sessionStorage.caseValue = JSON.stringify(a)
+    sessionStorage.setItem("xScore", 0)
+    sessionStorage.setItem("oScore", 0)
+    sessionStorage.setItem("ties", 0)
+    setTurnTxt()
+    setScore()
 })
 
 for (let i = 0; i < cases.length; i++) {
@@ -97,6 +149,7 @@ for (let i = 0; i < cases.length; i++) {
                 })
             }
         }
+        setTurnTxt()
         let a = JSON.parse(sessionStorage.caseValue)
         a[i] = e.currentTarget.dataset.value
         if(a[i]=="x"){
@@ -104,16 +157,76 @@ for (let i = 0; i < cases.length; i++) {
         }else if(a[i] == "o"){
             e.currentTarget.style.backgroundImage = "url('assets/icon-o.svg')";
         }
-        console.log(a)
         sessionStorage.caseValue = JSON.stringify(a)
         console.log(sessionStorage.caseValue)
         console.log(e.currentTarget)
+        console.log(a)
+
+        if(
+            (a[0]==a[1] && a[1] == a[2] && a[0]!="") 
+            || (a[0]==a[3] && a[3] == a[6] && a[0]!="")
+            || (a[3]==a[4] && a[4] == a[5] && a[3]!="")
+            || (a[6]==a[7] && a[7] == a[8] && a[6]!="")
+            || (a[1]==a[4] && a[4] == a[7] && a[1]!="")
+            || (a[2]==a[5] && a[5] == a[8] && a[2]!="")
+            || (a[0]==a[4] && a[4] == a[8] && a[0]!="")
+            || (a[2]==a[4] && a[4] == a[6] && a[2]!="")
+        ){
+            if(sessionStorage.currentPlayer == "x"){
+                sessionStorage.oScore++
+                sessionStorage.winMessage = "oWin"
+            }else{
+                sessionStorage.xScore++
+                sessionStorage.winMessage = "xWin"
+            }
+            setScore()
+            sessionStorage.winState = "true"
+            setWinState()
+        }else{
+            for(let i = 0; i < a.length; i++){
+                if(a[i]==""){
+                    break;
+                }else if(i==a.length-1){
+                    sessionStorage.ties++
+                    sessionStorage.winMessage = "ties"
+                    setScore()
+                    sessionStorage.winState = "true"
+                    setWinState()
+                }
+            }
+        }
     })
     
 }
 
+const next = document.getElementById("next")
+
+next.addEventListener("click", () => {
+    document.getElementById("result").classList.remove("show")
+    cases.forEach(cas=>{
+        cas.style.backgroundImage = "url('assets/icon-x-outline.svg')"
+        cas.classList.add("empty")
+        cas.dataset.value = "";
+    })
+    let a = ["","","","","","","","",""]
+    sessionStorage.caseValue = JSON.stringify(a)
+    setTurnTxt()
+    setScore()
+    sessionStorage.winState = "false"
+    setWinState()
+})
+
 let restart = document.getElementById("restart")
 restart.addEventListener("click", () => {
     sessionStorage.setItem("layerIndex",0)
+    setLayer(layers)
+    sessionStorage.winState = "false"
+    setWinState()
+})
+let quit = document.getElementById("quit")
+quit.addEventListener("click", () => {
+    sessionStorage.setItem("layerIndex",0)
+    sessionStorage.winState = "false"
+    setWinState()
     setLayer(layers)
 })

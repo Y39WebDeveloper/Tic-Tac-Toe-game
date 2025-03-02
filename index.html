@@ -58,24 +58,26 @@
     </div>
     <div class="foot">
       <div style="background-color: #31c3bd">
-        <p>X(YOU)<span>14</span></p>
+        <p>X(YOU)<span id="xScore">0</span></p>
       </div>
       <div style="background-color: #a8bfc9">
-        <p>TIES<span>32</span></p>
+        <p>TIES<span id="ties">0</span></p>
       </div>
       <div style="background-color: #f2b137">
-        <p>O(CPU)<span>11</span></p>
+        <p>O(CPU)<span id="oScore">0</span></p>
       </div>
     </div>
   </div>
 
   <div class="result" id="result">
     <div class="container">
-      <p>OH NO, YOU LOST…</p>
-      <h2><img src="assets/icon-o.svg" alt="" />TAKES THE ROUND</h2>
+      <div id="winMessage">
+        <p>OH NO, YOU LOST…</p>
+        <h2><img src="assets/icon-o.svg" alt="" />TAKES THE ROUND</h2>
+      </div>
       <div class="btns">
-        <div class="btn">QUIT</div>
-        <div class="btn-2">NEXT ROUND</div>
+        <div class="btn" id="quit">QUIT</div>
+        <div class="btn-2" id="next">NEXT ROUND</div>
       </div>
     </div>
   </div>
