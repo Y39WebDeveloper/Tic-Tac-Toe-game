@@ -25,6 +25,7 @@ function setWinState(){
         result.classList.remove("show")
     }
 }
+setWinState()
 function setWinMessage(){
     sessionStorage.winMessage = undefined ? "oWin" : sessionStorage.winMessage
     if(sessionStorage.winMessage == "oWin"){
@@ -37,7 +38,6 @@ function setWinMessage(){
         winMessage.innerHTML = "<h2 style='color:#A8BFC9'>ROUND TIED</h2>"
     }
 }
-setWinState()
 
 if(sessionStorage.layerIndex == undefined){
     sessionStorage.setItem("layerIndex",0)
@@ -91,7 +91,11 @@ const multi = document.getElementById("multi")
 
 multi.addEventListener("click", () => {
     cases.forEach(cas=>{
-        cas.style.backgroundImage = "url('assets/icon-x-outline.svg')"
+        if(sessionStorage.currentPlayer == "o"){
+            cas.style.backgroundImage = "assets/icon-o-outline.svg";
+        }else{
+            cas.style.backgroundImage = "assets/icon-x-outline.svg";
+        }
         cas.classList.add("empty")
         cas.dataset.value = "";
     })
@@ -105,26 +109,12 @@ multi.addEventListener("click", () => {
     sessionStorage.setItem("ties", 0)
     setTurnTxt()
     setScore()
+    setBg()
 })
 
 for (let i = 0; i < cases.length; i++) {
     const cas = cases[i];
-    if(JSON.parse(sessionStorage.caseValue)[i]=="x"){
-        cas.style.backgroundImage = "url('assets/icon-x.svg')";
-        cas.dataset.value = "x";
-        cas.classList.add("active")
-    }else if(JSON.parse(sessionStorage.caseValue)[i] == "o"){
-        cas.style.backgroundImage = "url('assets/icon-o.svg')";
-        cas.dataset.value = "o";
-        cas.classList.remove("empty")
-    }else{
-        cas.classList.add("empty")
-        if(sessionStorage.currentPlayer=="x"){
-            cas.style.backgroundImage = "url('assets/icon-x-outline.svg')";
-        }else{
-            cas.style.backgroundImage = "url('assets/icon-o-outline.svg')";
-        }
-    }
+    setBg()
     cas.addEventListener("click", (e) => {
         if(e.currentTarget.dataset.value!="x" && e.currentTarget.dataset.value!="o"){
             if(sessionStorage.currentPlayer == "x"){
@@ -157,20 +147,19 @@ for (let i = 0; i < cases.length; i++) {
         }else if(a[i] == "o"){
             e.currentTarget.style.backgroundImage = "url('assets/icon-o.svg')";
         }
-        sessionStorage.caseValue = JSON.stringify(a)
         console.log(sessionStorage.caseValue)
         console.log(e.currentTarget)
         console.log(a)
-
+        
         if(
-            (a[0]==a[1] && a[1] == a[2] && a[0]!="") 
-            || (a[0]==a[3] && a[3] == a[6] && a[0]!="")
-            || (a[3]==a[4] && a[4] == a[5] && a[3]!="")
-            || (a[6]==a[7] && a[7] == a[8] && a[6]!="")
-            || (a[1]==a[4] && a[4] == a[7] && a[1]!="")
-            || (a[2]==a[5] && a[5] == a[8] && a[2]!="")
-            || (a[0]==a[4] && a[4] == a[8] && a[0]!="")
-            || (a[2]==a[4] && a[4] == a[6] && a[2]!="")
+            (check(a,[0,1,2])) 
+            || (check(a,[0,3,6]))
+            || (check(a,[4,3,5]))
+            || (check(a,[6,7,8]))
+            || (check(a,[1,4,7]))
+            || (check(a,[2,5,8]))
+            || (check(a,[0,4,8]))
+            || (check(a,[2,4,6]))
         ){
             if(sessionStorage.currentPlayer == "x"){
                 sessionStorage.oScore++
@@ -195,8 +184,42 @@ for (let i = 0; i < cases.length; i++) {
                 }
             }
         }
+        sessionStorage.caseValue = JSON.stringify(a)
     })
     
+}
+
+function setBg(){
+    for(let i = 0; i < cases.length; i++){
+        const cas = cases[i]
+        if(JSON.parse(sessionStorage.caseValue)[i]=="x"){
+            cas.style.backgroundImage = "url('assets/icon-x.svg')";
+            cas.dataset.value = "x";
+            cas.classList.add("active")
+        }else if(JSON.parse(sessionStorage.caseValue)[i] == "o"){
+            cas.style.backgroundImage = "url('assets/icon-o.svg')";
+            cas.dataset.value = "o";
+            cas.classList.remove("empty")
+        }else{
+            cas.classList.add("empty")
+            if(sessionStorage.currentPlayer=="x"){
+                cas.style.backgroundImage = "url('assets/icon-x-outline.svg')";
+            }else{
+                cas.style.backgroundImage = "url('assets/icon-o-outline.svg')";
+            }
+        }
+    }
+}
+
+function check(a,b){
+    if(a[b[0]]==a[b[1]] && a[b[1]]==a[b[2]] && a[b[0]] != ""){
+        if(a[b[0]] == "o"){
+            a[b[0]] = "O"
+        }else{
+            a[b[0]] = "X"
+        }
+        return true
+    }
 }
 
 const next = document.getElementById("next")
@@ -204,7 +227,11 @@ const next = document.getElementById("next")
 next.addEventListener("click", () => {
     document.getElementById("result").classList.remove("show")
     cases.forEach(cas=>{
-        cas.style.backgroundImage = "url('assets/icon-x-outline.svg')"
+        if(sessionStorage.currentPlayer == "o"){
+            cas.style.backgroundImage = "assets/icon-o-outline.svg";
+        }else{
+            cas.style.backgroundImage = "assets/icon-x-outline.svg";
+        }
         cas.classList.add("empty")
         cas.dataset.value = "";
     })
@@ -214,6 +241,7 @@ next.addEventListener("click", () => {
     setScore()
     sessionStorage.winState = "false"
     setWinState()
+    setBg()
 })
 
 let restart = document.getElementById("restart")
